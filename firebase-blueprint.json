@@ -1,0 +1,138 @@
+{
+  "entities": {
+    "Order": {
+      "title": "Order",
+      "description": "Patient clinic remedy orders",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string" },
+        "customerName": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "city": { "type": "string" },
+        "address": { "type": "string" },
+        "deliveryMethod": { "type": "string" },
+        "paymentMethod": { "type": "string" },
+        "items": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "subtotal": { "type": "number" },
+        "shippingFee": { "type": "number" },
+        "discount": { "type": "number" },
+        "total": { "type": "number" },
+        "status": { "type": "string" },
+        "prescriptionAttached": { "type": "boolean" },
+        "prescriptionNote": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "required": ["customerName", "phone", "city", "address", "items", "total", "status"]
+    },
+    "Appointment": {
+      "title": "Appointment",
+      "description": "Patient consultation appointment bookings",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string" },
+        "timeSlot": { "type": "string" },
+        "patientName": { "type": "string" },
+        "patientAge": { "type": "number" },
+        "gender": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "city": { "type": "string" },
+        "consultationType": { "type": "string" },
+        "problemCategory": { "type": "string" },
+        "symptomsDescription": { "type": "string" },
+        "fee": { "type": "number" },
+        "paymentStatus": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["patientName", "phone", "city", "consultationType", "status"]
+    },
+    "PrescriptionSubmission": {
+      "title": "PrescriptionSubmission",
+      "description": "Uploaded or requested homeopathic prescriptions",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string" },
+        "patientName": { "type": "string" },
+        "phone": { "type": "string" },
+        "city": { "type": "string" },
+        "address": { "type": "string" },
+        "illnessHistory": { "type": "string" },
+        "doctorComments": { "type": "string" },
+        "status": { "type": "string" },
+        "fileName": { "type": "string" }
+      },
+      "required": ["patientName", "phone", "city", "status"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Patient clinical feedback and ratings",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "patientName": { "type": "string" },
+        "city": { "type": "string" },
+        "condition": { "type": "string" },
+        "rating": { "type": "number" },
+        "comment": { "type": "string" },
+        "date": { "type": "string" },
+        "verified": { "type": "boolean" }
+      },
+      "required": ["patientName", "rating", "comment"]
+    },
+    "ClinicSettings": {
+      "title": "ClinicSettings",
+      "description": "Doctor and clinic official settings",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "urduName": { "type": "string" },
+        "qualifications": { "type": "string" },
+        "councilRegNo": { "type": "string" },
+        "title": { "type": "string" },
+        "experience": { "type": "string" },
+        "consultationFee": { "type": "number" },
+        "clinicName": { "type": "string" },
+        "brandName": { "type": "string" },
+        "brandSubtitle": { "type": "string" },
+        "address": { "type": "string" },
+        "city": { "type": "string" },
+        "phone": { "type": "string" },
+        "whatsapp": { "type": "string" },
+        "email": { "type": "string" },
+        "timings": { "type": "string" },
+        "announcementText": { "type": "string" },
+        "aboutBio": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Store all customer remedy orders"
+    },
+    "/appointments/{appointmentId}": {
+      "schema": "Appointment",
+      "description": "Consultation appointments for Dr. Ejaz Ahmad"
+    },
+    "/prescriptions/{prescriptionId}": {
+      "schema": "PrescriptionSubmission",
+      "description": "Prescription order requests"
+    },
+    "/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Patient testimonials and ratings"
+    },
+    "/settings/clinic": {
+      "schema": "ClinicSettings",
+      "description": "Global clinic and doctor profile settings"
+    }
+  }
+}

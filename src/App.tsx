@@ -27,6 +27,18 @@ import {
 } from './data/initialData';
 import { Product, ProductCategory, CartItem, Appointment, Order, ClinicSettings, Review } from './types';
 import { Phone, ShoppingBag, Calendar, MessageSquare } from 'lucide-react';
+import { 
+  subscribeOrders, 
+  saveOrderToFirestore, 
+  updateOrderStatusInFirestore,
+  subscribeAppointments, 
+  saveAppointmentToFirestore, 
+  updateAppointmentStatusInFirestore,
+  subscribeReviews, 
+  saveReviewToFirestore,
+  subscribeClinicSettings,
+  saveClinicSettingsToFirestore
+} from './lib/firestoreService';
 
 export default function App() {
   // Navigation State
@@ -34,7 +46,7 @@ export default function App() {
   const [selectedCategory, setSelectedCategory] = useState<ProductCategory>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  // Clinic Settings State with LocalStorage persistence
+  // Clinic Settings State
   const [clinicSettings, setClinicSettings] = useState<ClinicSettings>(() => {
     try {
       const saved = localStorage.getItem('phc_clinic_settings');
@@ -54,7 +66,7 @@ export default function App() {
     }
   });
 
-  // Reviews State with Local Storage persistence
+  // Reviews State
   const [reviews, setReviews] = useState<Review[]>(() => {
     try {
       const saved = localStorage.getItem('phc_reviews');
@@ -93,6 +105,29 @@ export default function App() {
       return INITIAL_ORDERS;
     }
   });
+
+  // Real-time Firestore Subscriptions
+  useEffect(() => {
+    const unsubOrders = subscribeOrders((liveOrders) => {
+      setOrders(liveOrders);
+    });
+    const unsubApts = subscribeAppointments((liveApts) => {
+      setAppointments(liveApts);
+    });
+    const unsubReviews = subscribeReviews((liveReviews) => {
+      setReviews(liveReviews);
+    });
+    const unsubSettings = subscribeClinicSettings((liveSettings) => {
+      setClinicSettings(liveSettings);
+    });
+
+    return () => {
+      unsubOrders();
+      unsubApts();
+      unsubReviews();
+      unsubSettings();
+    };
+  }, []);
 
   // Smooth scroll to store remedies section and focus search box
   const handleGoToStore = (category?: ProductCategory) => {
@@ -212,10 +247,12 @@ export default function App() {
   // Appointment & Order Handlers
   const handleBookAppointment = (newAppointment: Appointment) => {
     setAppointments((prev) => [newAppointment, ...prev]);
+    saveAppointmentToFirestore(newAppointment);
   };
 
   const handleOrderPlaced = (newOrder: Order) => {
     setOrders((prev) => [newOrder, ...prev]);
+    saveOrderToFirestore(newOrder);
   };
 
   // Admin Operations
@@ -235,28 +272,34 @@ export default function App() {
     setAppointments((prev) =>
       prev.map((a) => (a.id === appointmentId ? { ...a, status } : a))
     );
+    updateAppointmentStatusInFirestore(appointmentId, status);
   };
 
   const handleAddAppointment = (newAppointment: Appointment) => {
     setAppointments((prev) => [newAppointment, ...prev]);
+    saveAppointmentToFirestore(newAppointment);
   };
 
   const handleUpdateOrderStatus = (orderId: string, status: Order['status']) => {
     setOrders((prev) =>
       prev.map((o) => (o.id === orderId ? { ...o, status } : o))
     );
+    updateOrderStatusInFirestore(orderId, status);
   };
 
   const handleUpdateClinicSettings = (newSettings: ClinicSettings) => {
     setClinicSettings(newSettings);
+    saveClinicSettingsToFirestore(newSettings);
   };
 
   const handleResetClinicSettings = () => {
     setClinicSettings(DOCTOR_INFO);
+    saveClinicSettingsToFirestore(DOCTOR_INFO);
   };
 
   const handleAddReview = (newReview: Review) => {
     setReviews((prev) => [newReview, ...prev]);
+    saveReviewToFirestore(newReview);
   };
 
   const handleDeleteReview = (reviewId: string) => {

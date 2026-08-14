@@ -97,7 +97,7 @@ export const SymptomAdvisor: React.FC<SymptomAdvisorProps> = ({
                 onClick={openConsultationModal}
                 className="w-full py-2 px-3.5 bg-white hover:bg-slate-50 text-slate-800 font-semibold text-xs rounded-lg border border-slate-300 transition-all text-center"
               >
-                Consult Dr. Ejaz (2k PKR)
+                Consult Dr. Ejaz (2000/- PKR)
               </button>
             </div>
 

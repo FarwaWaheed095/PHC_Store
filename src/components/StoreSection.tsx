@@ -272,7 +272,7 @@ export const StoreSection: React.FC<StoreSectionProps> = ({
                   className="flex-1 px-3 py-1.5 bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs rounded-lg shadow-xs transition-all flex items-center justify-center gap-1.5 active:scale-95 cursor-pointer"
                 >
                   <Calendar className="w-3.5 h-3.5 text-sky-200" />
-                  <span>Book Appointment (2k PKR)</span>
+                  <span>Book Appointment (2000/- PKR)</span>
                 </button>
                 <a
                   href="https://wa.me/923004202383?text=Salam%20Dr.%20Ejaz%20Ahmad,%20I%20want%20to%20book%20an%20Online%20WhatsApp%20Video%20Call%20Consultation."

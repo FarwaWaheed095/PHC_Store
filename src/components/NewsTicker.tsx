@@ -86,7 +86,7 @@ export const NewsTicker: React.FC<NewsTickerProps> = ({
             className="text-[11px] font-bold text-amber-300 hover:text-amber-200 bg-amber-950/60 hover:bg-amber-900/80 border border-amber-500/40 px-2 py-1 rounded-lg transition-colors flex items-center gap-1 cursor-pointer"
           >
             <Stethoscope className="w-3 h-3 text-amber-400" />
-            <span>Consult Doctor (2k PKR)</span>
+            <span>Consult Doctor (2000/- PKR)</span>
           </button>
         </div>
 

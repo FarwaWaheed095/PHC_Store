@@ -11,6 +11,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { DOCTOR_INFO } from '../data/initialData';
+import { savePrescriptionToFirestore } from '../lib/firestoreService';
 
 interface CustomPrescriptionModalProps {
   isOpen: boolean;
@@ -53,6 +54,18 @@ export const CustomPrescriptionModal: React.FC<CustomPrescriptionModalProps> = (
     const generatedRef = `RX-${Math.floor(10000 + Math.random() * 90000)}`;
     setRefId(generatedRef);
     setSubmitted(true);
+
+    savePrescriptionToFirestore({
+      id: generatedRef,
+      date: new Date().toISOString().split('T')[0],
+      patientName,
+      phone,
+      city,
+      address,
+      illnessHistory: `${illnessHistory} ${previousPrescriptionNo ? `(Prev Rx: ${previousPrescriptionNo})` : ''}`,
+      fileName: fileName || undefined,
+      status: 'Under Review'
+    });
   };
 
   const handleSendToWhatsApp = () => {
