@@ -1,0 +1,6 @@
+{
+  "name": "Punjab Homeopathic Clinic - Dr. Ejaz Ahmad",
+  "description": "Official online clinic and pharmacy of Dr. Ejaz Ahmad (D.H.M.S, 35+ Yrs Exp, Honorary Physician to Governor of Punjab). Book consultations (2000 PKR), buy pure homeopathic medicines for Sugar, Blood Pressure, Digestive & Fertility care, and order custom clinical prescriptions delivered across Pakistan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
